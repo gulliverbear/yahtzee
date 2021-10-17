@@ -33,6 +33,17 @@ def check_dice(dice, score):
     # check for full house, 4 of a kind, and rigole
     # these can all occur when set length is 2
     ###
+    if len(set(dice)) == 2:
+        ls = list(set(dice))
+        if dice.count(ls[0]) in (3,2):
+            score['full house'] += 1
+            return 
+        # if get here we know it is 4 of one kind and 1 of another
+        score['four of a kind'] += 1
+        for rigole in rigoles:
+            if set(dice) == set(rigole):
+                score['rigole'] += 1
+                return
 
 score = collections.defaultdict(int)
 combos = [d for d in itertools.product((1,2,3,4,5,6), repeat=5)]
